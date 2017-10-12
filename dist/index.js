@@ -8,7 +8,7 @@ const Sharp = require("sharp");
 
 const BUCKET = process.env.BUCKET;
 const URL = process.env.URL;
-const CONFIGURATION_KEY = "";
+const CONFIGURATION_KEY = "config.json";
 
 exports.handler = function(event, context, callback) {
   if (!event.queryStringParameters) {
