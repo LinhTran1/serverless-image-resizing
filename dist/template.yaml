@@ -1,0 +1,26 @@
+﻿AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Resizing image with dimension that already specified in config.json
+Resources:
+  resizingimage:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs6.10
+      CodeUri: .
+      Description: Resizing image with dimension that already specified in config.json
+      MemorySize: 128
+      Timeout: 60
+      Role: 'arn:aws:iam::112828882192:role/lambda_resizing_image'
+      Events:
+        Api1:
+          Type: Api
+          Properties:
+            Path: /resizing-image
+            Method: ANY
+      Environment:
+        Variables:
+          CONFIGURATION_BUCKET: europetal-dev
+          BUCKET: europetal-dev
+          CONFIGURATION_FILE: config.json
+          URL: europetal-dev.s3-ap-southeast-1.amazonaws.com

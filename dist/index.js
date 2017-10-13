@@ -4,11 +4,13 @@ const AWS = require("aws-sdk");
 const S3 = new AWS.S3({
   signatureVersion: "v4"
 });
+
 const Sharp = require("sharp");
 
 const BUCKET = process.env.BUCKET;
 const URL = process.env.URL;
-const CONFIGURATION_KEY = "config.json";
+const CONFIGURATION_BUCKET = process.env.CONF_BUCKET;
+const CONFIGURATION_FILE = process.env.CONF_FILE;
 
 exports.handler = function(event, context, callback) {
   if (!event.queryStringParameters) {
@@ -32,7 +34,7 @@ exports.handler = function(event, context, callback) {
 
   var responseContentType = undefined;
 
-  S3.getObject({ Bucket: BUCKET, Key: CONFIGURATION_KEY })
+  S3.getObject({ Bucket: CONFIGURATION_BUCKET, Key: CONFIGURATION_FILE })
     .promise()
     .then(data => {
       //READ CONFIGURATION FILE
